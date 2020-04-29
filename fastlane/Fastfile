@@ -1,0 +1,28 @@
+platform :ios do    
+  desc 'Fetch certificates and provisioning profiles'
+  lane :certificates do
+    match(app_identifier: 'com.orange-olusola.app')
+  end
+
+    desc 'Fetch certificates. Build the iOS application.'
+        lane :build do
+            certificates
+            gym(
+                scheme: "orange",
+                project: './ios/orange.xcodeproj',
+                export_method: 'ad-hoc'
+            )
+    end
+
+    desc 'Fetch certificates, build and upload to App Center.'
+        lane :beta do
+        build
+        appcenter_upload(
+            api_token: ENV["TEST_APPCENTER_API_TOKEN"],
+            owner_name: ENV["TEST_APPCENTER_OWNER_NAME"],
+            app_name: ENV["APPCENTER_APP_NAME"],
+            ipa: ENV["APPCENTER_DISTRIBUTE_IPA"]
+        )
+end
+
+end
