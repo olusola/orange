@@ -9,7 +9,7 @@ platform :ios do
             certificates
             gym(
                 scheme: "orange",
-                project: './ios/orange.xcodeproj',
+                workspace: './ios/orange.xcworkspace',
                 export_method: 'ad-hoc'
             )
     end
@@ -18,10 +18,10 @@ platform :ios do
         lane :beta do
         build
         appcenter_upload(
-            api_token: ENV["TEST_APPCENTER_API_TOKEN"],
-            owner_name: ENV["TEST_APPCENTER_OWNER_NAME"],
-            app_name: ENV["APPCENTER_APP_NAME"],
-            ipa: ENV["APPCENTER_DISTRIBUTE_IPA"]
+            api_token: 'MAC052468',
+            owner_name: 'olusola akinolugbade',
+            ipa: './orange.ipa',
+            app_name: 'orange'
         )
 end
 
